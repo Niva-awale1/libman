@@ -7,10 +7,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users") // Specify the table name
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment
@@ -20,15 +25,7 @@ public class User {
     private String email;
     private String password; // This should be encrypted later
 
-    // Many users can have one membership type
-    @ManyToOne
-    @JoinColumn(name = "membership_id") // Foreign key for membership
-    private Membership membership;
-
-    // Many users can have one role
-    @ManyToOne
-    @JoinColumn(name = "role_id") // Foreign key for role
-    private Role role;
+   
 
     // Default constructor
     public User() {
@@ -41,14 +38,7 @@ public class User {
         this.password = password;
     }
 
-    // Parameterized constructor for full user
-    public User(String name, String email, String password, Role role, Membership membership) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.membership = membership;
-    }
+   
 
     // Getters and setters
     public Long getId() {
@@ -83,19 +73,44 @@ public class User {
         this.password = password;
     }
 
-    public Membership getMembership() {
-        return membership;
+    
+
+    // UserDetails methods
+    
+
+    @Override
+    public String getUsername() {
+        return email; // Email is used as the username
     }
 
-    public void setMembership(Membership membership) {
-        this.membership = membership;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true; // Assuming account is not expired
     }
 
-    public Role getRole() {
-        return role;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true; // Assuming account is not locked
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true; // Assuming credentials are not expired
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true; // Assuming account is enabled
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
+    }
+
+    public User orElse(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'orElse'");
     }
 }

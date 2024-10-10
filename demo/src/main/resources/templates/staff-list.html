@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registered Users</title>
+    <link rel="stylesheet" href="">
+    <style>
+        /* General styling for the body */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            min-height: 100vh;
+        }
+        
+        /* Ensure the nav is positioned at the top */
+        nav {
+            background: linear-gradient(45deg, #6a89cc, #38ada9);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav h1 {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        nav .nav-right a {
+            margin-left: 20px;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        
+        nav .nav-right a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+        
+        /* Main content styling */
+        .content h1 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #333;
+        }
+        
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        table thead {
+            background-color: #3498db;
+            color: white;
+            text-align: left;
+        }
+        
+        table th, table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            font-size: 16px;
+        }
+        
+        table tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        table td a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 15px;
+            transition: color 0.3s;
+        }
+        
+        table td a:hover {
+            color: #2980b9;
+        }
+        
+        /* Button styling */
+        button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+        
+            table thead, table tbody, table th, table td {
+                display: block;
+                width: 100%;
+            }
+        
+            table th, table td {
+                padding: 10px;
+                text-align: left;
+            }
+        
+            table tbody tr {
+                margin-bottom: 15px;
+                border-bottom: none;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            }
+        }
+        
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <h1>Library Management System - Staff Portal</h1>
+        </div>
+        <div class="nav-right">
+            <a href="/home">Home</a>
+            <a href="#">Books</a>
+            <a href="#">Members</a>
+            <a href="/register">Register</a>
+            <a href="/login">Login</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <h1>Registered staff</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through users and display -->
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td>
+                        <a th:href="@{/edit(email=${user.email})}">Edit</a>
+                        <form th:action="@{/delete}" method="post" style="display:inline;">
+                            <input type="hidden" name="email" th:value="${user.email}"/>
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
