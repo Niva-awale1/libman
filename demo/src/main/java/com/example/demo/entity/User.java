@@ -91,6 +91,7 @@ public class User implements UserDetails {
     @Override
     public boolean isAccountNonLocked() {
         return true; // Assuming account is not locked
+<<<<<<< HEAD
     }
 
     @Override
@@ -112,5 +113,23 @@ public class User implements UserDetails {
     public User orElse(Object object) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'orElse'");
+=======
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true; // Assuming credentials are not expired
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true; // Assuming account is enabled
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
+>>>>>>> 46d35e974d7b27c18bd8c3ba6d73d52c8cce3a7c
     }
 }

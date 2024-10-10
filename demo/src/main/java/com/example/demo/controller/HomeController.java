@@ -138,29 +138,49 @@ public String processLogin(@RequestParam("email") String email, @RequestParam("p
     }
     @PostMapping("/update")
     public String updateUser(
+<<<<<<< HEAD:demo/src/main/java/com/example/demo/controller/HomeController.java
         @RequestParam("oldEmail") String oldEmail,
         @RequestParam("newName") String newName,
         @RequestParam("newEmail") String newEmail,
         Model model) {
     
+=======
+            @RequestParam("oldEmail") String oldEmail,
+            @RequestParam("newName") String newName,
+            @RequestParam("newEmail") String newEmail,
+           
+            Model model) {
+
+>>>>>>> 46d35e974d7b27c18bd8c3ba6d73d52c8cce3a7c:demo/src/main/java/com/example/demo/controller/HelloWorldController.java
         User userToUpdate = userService.findByEmail(oldEmail);
     
         if (userToUpdate != null) {
             userToUpdate.setName(newName);
             userToUpdate.setEmail(newEmail);
+<<<<<<< HEAD:demo/src/main/java/com/example/demo/controller/HomeController.java
     
             userService.saveUser(userToUpdate);
     
             // Add the updated user to the model
             model.addAttribute("user", userToUpdate);
     
+=======
+
+            
+            userService.saveUser(userToUpdate);
+
+>>>>>>> 46d35e974d7b27c18bd8c3ba6d73d52c8cce3a7c:demo/src/main/java/com/example/demo/controller/HelloWorldController.java
             return "redirect:/users";
         } else {
             // Pass a null user to the model when the user is not found
             model.addAttribute("user", new User());  // Empty user to avoid Thymeleaf errors
             model.addAttribute("errorMessage", "User not found!");
+<<<<<<< HEAD:demo/src/main/java/com/example/demo/controller/HomeController.java
     
             return "staff-edit";  // Return to the edit page with the error
+=======
+            return "staff-edit"; 
+>>>>>>> 46d35e974d7b27c18bd8c3ba6d73d52c8cce3a7c:demo/src/main/java/com/example/demo/controller/HelloWorldController.java
         }
     }
 }
